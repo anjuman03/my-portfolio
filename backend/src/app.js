@@ -11,7 +11,9 @@ const { env } = require("./config/env");
 const logger = require("./config/logger");
 
 const app = express();
-
+app.get("/", (req, res) => {
+  res.send("Backend Working");
+});
 /* -------------------------------------------------------------------------- */
 /*                               Security                                     */
 /* -------------------------------------------------------------------------- */
