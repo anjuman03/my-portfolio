@@ -22,7 +22,6 @@ const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Guards the scroll-spy from fighting a click-triggered smooth scroll
   const isClickScrolling = useRef(false);
   const clickScrollTimeout = useRef(null);
 
@@ -68,7 +67,6 @@ const Navbar = () => {
     if (location.pathname !== "/") return;
 
     const handleScroll = () => {
-      // Skip recalculation while we're mid-smooth-scroll from a nav click
       if (isClickScrolling.current) return;
 
       const sections = document.querySelectorAll("section[id]");
@@ -79,7 +77,8 @@ const Navbar = () => {
         const rect = section.getBoundingClientRect();
 
         if (rect.top <= 120 && rect.bottom >= 120) {
-          current = section.id.charAt(0).toUpperCase() + section.id.slice(1);
+          current =
+            section.id.charAt(0).toUpperCase() + section.id.slice(1);
         }
       });
 
@@ -95,7 +94,10 @@ const Navbar = () => {
     };
   }, [location.pathname]);
 
-  // Clean up any pending timeout on unmount
+  /* -------------------------------------------------------------------------- */
+  /*                              Cleanup                                       */
+  /* -------------------------------------------------------------------------- */
+
   useEffect(() => {
     return () => {
       if (clickScrollTimeout.current) {
@@ -105,7 +107,7 @@ const Navbar = () => {
   }, []);
 
   /* -------------------------------------------------------------------------- */
-  /*                               Nav Click Handler                            */
+  /*                               Nav Click                                    */
   /* -------------------------------------------------------------------------- */
 
   const handleNavClick = (item, closeMobileMenu = false) => {
@@ -116,18 +118,21 @@ const Navbar = () => {
 
     isClickScrolling.current = true;
 
-    // Wait a tick for the route/DOM to settle, then scroll to the section
     requestAnimationFrame(() => {
       const el = document.getElementById(sectionId);
+
       if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
       }
     });
 
-    // Re-enable scroll spy once the smooth scroll has likely finished
     if (clickScrollTimeout.current) {
       window.clearTimeout(clickScrollTimeout.current);
     }
+
     clickScrollTimeout.current = window.setTimeout(() => {
       isClickScrolling.current = false;
     }, 800);
@@ -142,17 +147,27 @@ const Navbar = () => {
   /* -------------------------------------------------------------------------- */
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-xl shadow-sm">
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
-        {" "}
+
+        {/* Logo + Name */}
         <button
           onClick={() => handleNavClick("Home")}
-          className="text-2xl font-bold text-blue-600 sm:text-3xl"
+          className="flex items-center gap-3"
         >
-          Portfolio
+          <img
+            src="/favicon.png"
+            alt="Anjuman Logo"
+            className="h-11 w-11 rounded-full object-contain"
+          />
+
+          <span className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+            Anjuman
+          </span>
         </button>
+
+        {/* Desktop Navigation */}
         <nav className="hidden items-center gap-8 lg:flex">
-          {" "}
           {navItems.map((item) => (
             <button
               key={item}
@@ -171,6 +186,8 @@ const Navbar = () => {
               )}
             </button>
           ))}
+
+          {/* Admin Buttons */}
           {isAdmin && (
             <>
               <button
@@ -202,6 +219,8 @@ const Navbar = () => {
             </>
           )}
         </nav>
+
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="rounded-lg p-2 lg:hidden"
@@ -209,6 +228,8 @@ const Navbar = () => {
           {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
+
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="border-t border-slate-200 bg-white lg:hidden">
           <nav className="flex flex-col p-5">
@@ -242,6 +263,7 @@ const Navbar = () => {
                   onClick={() => {
                     logout();
                     navigate("/?section=home");
+                    setMobileMenuOpen(false);
                   }}
                   className="mt-3 rounded-lg bg-red-500 px-4 py-3 text-left font-semibold text-white"
                 >
