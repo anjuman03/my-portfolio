@@ -28,7 +28,11 @@ const languages = [
 const HeroContent = () => {
   const { settings } = useSettings();
   return (
-    <div className="flex-1 text-center lg:text-left">
+    <div className="flex-1 text-center lg:text-left w-full
+max-w-full
+min-w-0
+mx-auto
+overflow-hidden">
       {/* Greeting */}
       <motion.p
         initial={{ opacity: 0, y: 30 }}

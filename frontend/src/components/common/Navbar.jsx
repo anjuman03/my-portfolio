@@ -51,7 +51,9 @@ const Navbar = () => {
     }
 
     if (path === "/" && section) {
-      setActive(section.charAt(0).toUpperCase() + section.slice(1));
+      setActive(
+        section.charAt(0).toUpperCase() + section.slice(1)
+      );
       return;
     }
 
@@ -79,14 +81,17 @@ const Navbar = () => {
 
         if (rect.top <= 120 && rect.bottom >= 120) {
           current =
-            section.id.charAt(0).toUpperCase() + section.id.slice(1);
+            section.id.charAt(0).toUpperCase() +
+            section.id.slice(1);
         }
       });
 
       setActive(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
     handleScroll();
 
@@ -96,7 +101,7 @@ const Navbar = () => {
   }, [location.pathname]);
 
   /* -------------------------------------------------------------------------- */
-  /*                              Cleanup                                       */
+  /*                                Cleanup                                     */
   /* -------------------------------------------------------------------------- */
 
   useEffect(() => {
@@ -112,9 +117,11 @@ const Navbar = () => {
   /* -------------------------------------------------------------------------- */
 
   const handleNavClick = (item, closeMobileMenu = false) => {
-    const sectionId = item === "Home" ? "home" : item.toLowerCase();
+    const sectionId =
+      item === "Home" ? "home" : item.toLowerCase();
 
     setActive(item);
+
     navigate(`/?section=${sectionId}`);
 
     isClickScrolling.current = true;
@@ -148,27 +155,115 @@ const Navbar = () => {
   /* -------------------------------------------------------------------------- */
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full border-b border-border bg-background/90 shadow-sm backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
+    <header
+      className="
+        fixed
+        top-0
+        left-0
+        right-0
+        z-50
+        box-border
+        w-full
+        max-w-none
+        overflow-x-hidden
+        border-b
+        border-border
+        bg-background/95
+        shadow-sm
+        backdrop-blur-xl
+      "
+    >
+      {/* ------------------------------------------------------------------ */}
+      {/* Navbar Container                                                    */}
+      {/* ------------------------------------------------------------------ */}
 
-        {/* Logo + Name */}
+      <div
+        className="
+          mx-0
+          flex
+          h-16
+          w-full
+          max-w-none
+          min-w-0
+          box-border
+          items-center
+          justify-between
+          overflow-hidden
+          px-3
+          sm:h-20
+          sm:px-5
+          lg:mx-auto
+          lg:max-w-7xl
+          lg:px-8
+        "
+      >
+        {/* ---------------------------------------------------------------- */}
+        {/* Logo + Name                                                      */}
+        {/* ---------------------------------------------------------------- */}
+
         <button
+          type="button"
           onClick={() => handleNavClick("Home")}
-          className="flex items-center gap-3"
+          className="
+            flex
+            min-w-0
+            flex-1
+            shrink
+            items-center
+            gap-2
+            overflow-hidden
+            text-left
+            sm:gap-3
+            lg:flex-none
+          "
         >
+          {/* Logo */}
           <img
             src="/favicon.png"
             alt="Anjuman Logo"
-            className="h-11 w-11 rounded-full object-contain"
+            className="
+              h-8
+              w-8
+              shrink-0
+              rounded-full
+              object-contain
+              sm:h-11
+              sm:w-11
+            "
           />
 
-          <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-2xl font-bold tracking-tight text-transparent sm:text-3xl dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400">
+          {/* Name */}
+          <span
+            className="
+              min-w-0
+              max-w-full
+              truncate
+              bg-gradient-to-r
+              from-blue-600
+              via-indigo-600
+              to-purple-600
+              bg-clip-text
+              text-[13px]
+              font-bold
+              leading-none
+              tracking-tight
+              text-transparent
+              sm:text-2xl
+              md:text-3xl
+              dark:from-blue-400
+              dark:via-indigo-400
+              dark:to-purple-400
+            "
+          >
             PATAN ANJUMAN
           </span>
         </button>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 lg:flex">
+        {/* ---------------------------------------------------------------- */}
+        {/* Desktop Navigation                                               */}
+        {/* ---------------------------------------------------------------- */}
+
+        <nav className="hidden shrink-0 items-center gap-8 lg:flex">
           {navItems.map((item) => (
             <button
               key={item}
@@ -213,39 +308,115 @@ const Navbar = () => {
                   setActive("Home");
                   navigate("/?section=home");
                 }}
-                className="rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-100 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500/20"
+                className="
+                  rounded-xl
+                  border
+                  border-red-200
+                  bg-red-50
+                  px-4
+                  py-2
+                  text-sm
+                  font-semibold
+                  text-red-600
+                  transition
+                  hover:bg-red-100
+                  dark:border-red-500/30
+                  dark:bg-red-500/10
+                  dark:text-red-400
+                  dark:hover:bg-red-500/20
+                "
               >
                 Logout
               </button>
             </>
           )}
 
-          {/* Theme Toggle (desktop) */}
           <ThemeToggle />
         </nav>
 
-        {/* Mobile: Theme Toggle + Menu Button */}
-        <div className="flex items-center gap-2 lg:hidden">
-          <ThemeToggle />
+        {/* ---------------------------------------------------------------- */}
+        {/* Mobile Controls                                                  */}
+        {/* ---------------------------------------------------------------- */}
 
+        <div
+          className="
+            flex
+            shrink-0
+            items-center
+            gap-1
+            sm:gap-2
+            lg:hidden
+          "
+        >
+          {/* Theme */}
+          <div className="shrink-0 scale-[0.78] sm:scale-100">
+            <ThemeToggle />
+          </div>
+
+          {/* Menu */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="rounded-lg p-2 text-foreground"
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            onClick={() =>
+              setMobileMenuOpen((prev) => !prev)
+            }
+            className="
+              flex
+              h-9
+              w-9
+              shrink-0
+              items-center
+              justify-center
+              rounded-lg
+              text-foreground
+              transition
+              hover:bg-accent
+              sm:h-11
+              sm:w-11
+            "
           >
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {mobileMenuOpen ? (
+              <X
+                size={24}
+                className="sm:h-7 sm:w-7"
+              />
+            ) : (
+              <Menu
+                size={24}
+                className="sm:h-7 sm:w-7"
+              />
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* -------------------------------------------------------------------- */}
+      {/* Mobile Menu                                                          */}
+      {/* -------------------------------------------------------------------- */}
+
       {mobileMenuOpen && (
-        <div className="border-t border-border bg-background lg:hidden">
-          <nav className="flex flex-col p-5">
+        <div
+          className="
+            box-border
+            w-full
+            max-w-full
+            overflow-x-hidden
+            border-t
+            border-border
+            bg-background
+            lg:hidden
+          "
+        >
+          <nav className="flex w-full flex-col p-3 sm:p-5">
             {navItems.map((item) => (
               <button
                 key={item}
-                onClick={() => handleNavClick(item, true)}
-                className={`rounded-lg px-4 py-3 text-left transition ${
+                type="button"
+                onClick={() =>
+                  handleNavClick(item, true)
+                }
+                className={`w-full rounded-lg px-4 py-3 text-left transition ${
                   active === item
                     ? "bg-blue-50 font-semibold text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"
                     : "text-foreground/80 hover:bg-accent"
@@ -258,22 +429,44 @@ const Navbar = () => {
             {isAdmin && (
               <>
                 <button
+                  type="button"
                   onClick={() => {
                     navigate("/settings");
                     setMobileMenuOpen(false);
                   }}
-                  className="mt-3 rounded-lg bg-blue-600 px-4 py-3 text-left font-semibold text-white"
+                  className="
+                    mt-3
+                    w-full
+                    rounded-lg
+                    bg-blue-600
+                    px-4
+                    py-3
+                    text-left
+                    font-semibold
+                    text-white
+                  "
                 >
                   ⚙ Settings
                 </button>
 
                 <button
+                  type="button"
                   onClick={() => {
                     logout();
                     navigate("/?section=home");
                     setMobileMenuOpen(false);
                   }}
-                  className="mt-3 rounded-lg bg-red-500 px-4 py-3 text-left font-semibold text-white"
+                  className="
+                    mt-3
+                    w-full
+                    rounded-lg
+                    bg-red-500
+                    px-4
+                    py-3
+                    text-left
+                    font-semibold
+                    text-white
+                  "
                 >
                   Logout
                 </button>

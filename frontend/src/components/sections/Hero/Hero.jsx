@@ -110,20 +110,24 @@ lg:w-[450px]
           mx-auto
           w-full
           max-w-7xl
-          px-5
+          min-w-0
+          px-4
 sm:px-6
 lg:px-10
         "
       >
         <div
-          className="
-            grid
-items-center
-gap-10
-lg:gap-16
-lg:grid-cols-2
-          "
-        >
+  className="
+    grid
+    w-full
+    min-w-0
+    grid-cols-1
+    items-center
+    gap-10
+    lg:grid-cols-2
+    lg:gap-16
+  "
+>
           {/* Left Content */}
           <motion.div variants={fadeLeft} initial="hidden" animate="visible">
             <HeroContent />
