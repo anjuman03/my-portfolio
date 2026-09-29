@@ -28,16 +28,17 @@ const Hero = () => {
             absolute
             inset-0
             bg-[linear-gradient(to_right,#00000006_1px,transparent_1px),linear-gradient(to_bottom,#00000006_1px,transparent_1px)]
+            dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)]
             bg-[size:44px_44px]
           "
         />
 
-        {/* Grid fade */}
+        {/* Grid fade (follows the theme background) */}
         <div
           className="
             absolute
             inset-0
-            bg-[radial-gradient(ellipse_at_center,transparent_10%,white_75%)]
+            bg-[radial-gradient(ellipse_at_center,transparent_10%,var(--background)_75%)]
           "
         />
       </div>
@@ -67,6 +68,7 @@ lg:w-[500px]
           -translate-x-1/2
           rounded-full
           bg-blue-500/10
+          dark:bg-blue-500/20
           blur-3xl
         "
       />
@@ -95,6 +97,7 @@ lg:h-[450px]
 lg:w-[450px]
           rounded-full
           bg-purple-500/[0.08]
+          dark:bg-purple-500/20
           blur-[100px]
         "
       />

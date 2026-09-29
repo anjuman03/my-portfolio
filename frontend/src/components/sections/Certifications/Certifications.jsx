@@ -87,15 +87,15 @@ const Certifications = () => {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <p className="font-semibold uppercase tracking-[0.3em] text-blue-600">
+          <p className="font-semibold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">
             CERTIFICATIONS
           </p>
 
-          <h2 className="mt-3 text-5xl font-bold text-slate-900">
+          <h2 className="mt-3 text-5xl font-bold text-foreground">
             Learning & Certifications
           </h2>
 
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-slate-600">
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
             Certifications and learning milestones that reflect my continuous
             commitment to improving my technical knowledge and software
             development skills.
@@ -136,7 +136,7 @@ const Certifications = () => {
             ))}
           </div>
         ) : (
-          <div className="py-16 text-center text-slate-500">
+          <div className="py-16 text-center text-muted-foreground">
             No certificates added yet.
           </div>
         )}

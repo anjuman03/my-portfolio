@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAdminAuth } from "@/context/AdminAuthContext";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const location = useLocation();
@@ -147,7 +148,7 @@ const Navbar = () => {
   /* -------------------------------------------------------------------------- */
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-xl">
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-border bg-background/90 shadow-sm backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
 
         {/* Logo + Name */}
@@ -161,9 +162,9 @@ const Navbar = () => {
             className="h-11 w-11 rounded-full object-contain"
           />
 
-          <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-2xl font-bold tracking-tight text-transparent sm:text-3xl">
-  PATAN ANJUMAN
-</span>
+          <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-2xl font-bold tracking-tight text-transparent sm:text-3xl dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400">
+            PATAN ANJUMAN
+          </span>
         </button>
 
         {/* Desktop Navigation */}
@@ -175,14 +176,14 @@ const Navbar = () => {
               onClick={() => handleNavClick(item)}
               className={`relative bg-transparent text-base font-medium transition ${
                 active === item
-                  ? "text-blue-600"
-                  : "text-slate-700 hover:text-blue-600"
+                  ? "text-blue-600 dark:text-blue-400"
+                  : "text-foreground/80 hover:text-blue-600 dark:hover:text-blue-400"
               }`}
             >
               {item}
 
               {active === item && (
-                <span className="absolute -bottom-3 left-0 h-1 w-full rounded-full bg-blue-600" />
+                <span className="absolute -bottom-3 left-0 h-1 w-full rounded-full bg-blue-600 dark:bg-blue-400" />
               )}
             </button>
           ))}
@@ -199,7 +200,7 @@ const Navbar = () => {
                 className={`rounded-xl border px-4 py-2 text-sm font-semibold transition ${
                   active === "Settings"
                     ? "border-blue-600 bg-blue-600 text-white"
-                    : "border-blue-200 bg-blue-50 text-blue-600 hover:bg-blue-100"
+                    : "border-blue-200 bg-blue-50 text-blue-600 hover:bg-blue-100 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20"
                 }`}
               >
                 ⚙ Settings
@@ -212,26 +213,33 @@ const Navbar = () => {
                   setActive("Home");
                   navigate("/?section=home");
                 }}
-                className="rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-100"
+                className="rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-100 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500/20"
               >
                 Logout
               </button>
             </>
           )}
+
+          {/* Theme Toggle (desktop) */}
+          <ThemeToggle />
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="rounded-lg p-2 lg:hidden"
-        >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Mobile: Theme Toggle + Menu Button */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="rounded-lg p-2 text-foreground"
+          >
+            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="border-t border-slate-200 bg-white lg:hidden">
+        <div className="border-t border-border bg-background lg:hidden">
           <nav className="flex flex-col p-5">
             {navItems.map((item) => (
               <button
@@ -239,8 +247,8 @@ const Navbar = () => {
                 onClick={() => handleNavClick(item, true)}
                 className={`rounded-lg px-4 py-3 text-left transition ${
                   active === item
-                    ? "bg-blue-50 font-semibold text-blue-600"
-                    : "text-slate-700 hover:bg-slate-100"
+                    ? "bg-blue-50 font-semibold text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"
+                    : "text-foreground/80 hover:bg-accent"
                 }`}
               >
                 {item}

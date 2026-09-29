@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import axios from "axios";
 import { toast } from "sonner";
 import { useAdminAuth } from "@/context/AdminAuthContext";
+import { labelClass, inputClass } from "./formStyles";
 
 const categories = [
   "Programming",
@@ -91,15 +92,13 @@ const SkillFormModal = ({
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="text-sm font-medium text-slate-700">
-              Category
-            </label>
+            <label className={labelClass}>Category</label>
 
             <select
               name="category"
               value={form.category}
               onChange={handleChange}
-              className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all text-sm"
+              className={inputClass}
             >
               {categories.map((category) => (
                 <option key={category}>
@@ -137,14 +136,9 @@ const Field = ({
   ...props
 }) => (
   <div>
-    <label className="text-sm font-medium text-slate-700">
-      {label}
-    </label>
+    <label className={labelClass}>{label}</label>
 
-    <input
-      {...props}
-      className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all text-sm"
-    />
+    <input {...props} className={inputClass} />
   </div>
 );
 

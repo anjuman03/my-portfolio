@@ -4,37 +4,31 @@ import axios from "axios";
 import Modal from "./Modal";
 import { useAdminAuth } from "@/context/AdminAuthContext";
 import { toast } from "sonner";
+import { labelClass, inputClass, fileClass } from "./formStyles";
 
 const Field = ({ label, ...props }) => (
   <div>
-    <label className="text-sm font-medium text-slate-700">
-      {label}
-    </label>
+    <label className={labelClass}>{label}</label>
 
-    <input
-      {...props}
-      className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm outline-none transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-    />
+    <input {...props} className={inputClass} />
   </div>
 );
 
 const TextArea = ({ label, ...props }) => (
   <div>
-    <label className="text-sm font-medium text-slate-700">
-      {label}
-    </label>
+    <label className={labelClass}>{label}</label>
 
     <textarea
       {...props}
       rows={5}
-      className="mt-1.5 w-full resize-none rounded-xl border border-slate-200 px-4 py-2.5 text-sm outline-none transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+      className={`${inputClass} resize-none`}
     />
   </div>
 );
 
 const SectionTitle = ({ children }) => (
-  <div className="border-b border-slate-200 pb-2">
-    <h3 className="text-lg font-semibold text-slate-900">
+  <div className="border-b border-border pb-2">
+    <h3 className="text-lg font-semibold text-foreground">
       {children}
     </h3>
   </div>
@@ -82,69 +76,37 @@ const SettingFormModal = ({
     if (!initialData) return;
 
     setForm({
-      portfolioName:
-        initialData.portfolioName || "",
+      portfolioName: initialData.portfolioName || "",
+      fullName: initialData.fullName || "",
+      role: initialData.role || "",
+      headline: initialData.headline || "",
+      about: initialData.about || "",
 
-      fullName:
-        initialData.fullName || "",
+      email: initialData.email || "",
+      phone: initialData.phone || "",
+      location: initialData.location || "",
 
-      role:
-        initialData.role || "",
+      github: initialData.github || "",
+      linkedin: initialData.linkedin || "",
+      instagram: initialData.instagram || "",
+      twitter: initialData.twitter || "",
 
-      headline:
-        initialData.headline || "",
-
-      about:
-        initialData.about || "",
-
-      email:
-        initialData.email || "",
-
-      phone:
-        initialData.phone || "",
-
-      location:
-        initialData.location || "",
-
-      github:
-        initialData.github || "",
-
-      linkedin:
-        initialData.linkedin || "",
-
-      instagram:
-        initialData.instagram || "",
-
-      twitter:
-        initialData.twitter || "",
-
-      leetcode:
-        initialData.leetcode || "",
-
-      hackerrank:
-        initialData.hackerrank || "",
-
-      codechef:
-        initialData.codechef || "",
-
-      codeforces:
-        initialData.codeforces || "",
+      leetcode: initialData.leetcode || "",
+      hackerrank: initialData.hackerrank || "",
+      codechef: initialData.codechef || "",
+      codeforces: initialData.codeforces || "",
 
       resumeButtonText:
-        initialData.resumeButtonText ||
-        "Download Resume",
+        initialData.resumeButtonText || "Download Resume",
     });
 
-    setProfilePreview(
-      initialData.profileImage?.url || ""
-    );
+    setProfilePreview(initialData.profileImage?.url || "");
   }, [initialData]);
 
   const handleChange = (e) =>
     setForm({
       ...form,
-      [e.target.name]:
-        e.target.value,
+      [e.target.name]: e.target.value,
     });
 
   const handleProfileImage = (e) => {
@@ -154,9 +116,7 @@ const SettingFormModal = ({
 
     setProfileImage(file);
 
-    setProfilePreview(
-      URL.createObjectURL(file)
-    );
+    setProfilePreview(URL.createObjectURL(file));
   };
 
   const handleResume = (e) => {
@@ -184,13 +144,9 @@ const SettingFormModal = ({
       );
 
       if (profileImage) {
-        const imageData =
-          new FormData();
+        const imageData = new FormData();
 
-        imageData.append(
-          "profileImage",
-          profileImage
-        );
+        imageData.append("profileImage", profileImage);
 
         await axios.patch(
           `${import.meta.env.VITE_API_URL}/api/settings/profile-image`,
@@ -198,21 +154,16 @@ const SettingFormModal = ({
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              "Content-Type":
-                "multipart/form-data",
+              "Content-Type": "multipart/form-data",
             },
           }
         );
       }
 
       if (resume) {
-        const resumeData =
-          new FormData();
+        const resumeData = new FormData();
 
-        resumeData.append(
-          "resume",
-          resume
-        );
+        resumeData.append("resume", resume);
 
         await axios.patch(
           `${import.meta.env.VITE_API_URL}/api/settings/resume`,
@@ -220,23 +171,19 @@ const SettingFormModal = ({
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              "Content-Type":
-                "multipart/form-data",
+              "Content-Type": "multipart/form-data",
             },
           }
         );
       }
 
-      toast.success(
-        "Profile updated successfully."
-      );
+      toast.success("Profile updated successfully.");
 
       onSuccess();
       onClose();
     } catch (err) {
       toast.error(
-        err.response?.data?.message ||
-          "Something went wrong."
+        err.response?.data?.message || "Something went wrong."
       );
     } finally {
       setSaving(false);
@@ -244,41 +191,27 @@ const SettingFormModal = ({
   };
 
   return (
-    <Modal
-      title="Edit Portfolio"
-      onClose={onClose}
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-8"
-      >
+    <Modal title="Edit Portfolio" onClose={onClose}>
+      <form onSubmit={handleSubmit} className="space-y-8">
         {/* ---------------- Personal Information ---------------- */}
 
-        <SectionTitle>
-          Personal Information
-        </SectionTitle>
+        <SectionTitle>Personal Information</SectionTitle>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">
-            Profile Image
-          </label>
+          <label className={labelClass}>Profile Image</label>
 
           <input
             type="file"
             accept="image/*"
             onChange={handleProfileImage}
-            className="mt-1.5 w-full text-sm text-slate-600
-            file:mr-2 file:rounded-lg file:border-0
-            file:bg-blue-50 file:px-3 file:py-2
-            file:font-medium file:text-blue-600
-            hover:file:bg-blue-100"
+            className={fileClass}
           />
 
           {profilePreview && (
             <img
               src={profilePreview}
               alt="Profile Preview"
-              className="mt-4 h-36 w-36 rounded-full border object-cover shadow-md"
+              className="mt-4 h-36 w-36 rounded-full border object-cover shadow-md dark:shadow-none"
             />
           )}
         </div>
@@ -320,9 +253,7 @@ const SettingFormModal = ({
 
         {/* ---------------- Contact ---------------- */}
 
-        <SectionTitle>
-          Contact Information
-        </SectionTitle>
+        <SectionTitle>Contact Information</SectionTitle>
 
         <div className="grid grid-cols-2 gap-4">
           <Field
@@ -349,9 +280,7 @@ const SettingFormModal = ({
 
         {/* ---------------- Social ---------------- */}
 
-        <SectionTitle>
-          Social Links
-        </SectionTitle>
+        <SectionTitle>Social Links</SectionTitle>
 
         <Field
           label="GitHub"
@@ -411,24 +340,16 @@ const SettingFormModal = ({
 
         {/* ---------------- Resume ---------------- */}
 
-        <SectionTitle>
-          Resume
-        </SectionTitle>
+        <SectionTitle>Resume</SectionTitle>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">
-            Upload Resume
-          </label>
+          <label className={labelClass}>Upload Resume</label>
 
           <input
             type="file"
             accept=".pdf"
             onChange={handleResume}
-            className="mt-1.5 w-full text-sm text-slate-600
-            file:mr-2 file:rounded-lg file:border-0
-            file:bg-blue-50 file:px-3 file:py-2
-            file:font-medium file:text-blue-600
-            hover:file:bg-blue-100"
+            className={fileClass}
           />
         </div>
 
@@ -444,17 +365,11 @@ const SettingFormModal = ({
           disabled={saving}
           className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
         >
-          {saving
-            ? "Saving..."
-            : "Save Changes"}
+          {saving ? "Saving..." : "Save Changes"}
         </button>
       </form>
     </Modal>
-
-    
   );
-
 };
-
 
 export default SettingFormModal;

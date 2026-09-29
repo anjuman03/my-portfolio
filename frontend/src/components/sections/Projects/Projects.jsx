@@ -80,15 +80,15 @@ const Projects = () => {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <p className="font-semibold uppercase tracking-widest text-blue-600">
+          <p className="font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Projects
           </p>
 
-          <h2 className="mt-2 text-4xl font-bold text-slate-900">
+          <h2 className="mt-2 text-4xl font-bold text-foreground">
             Featured Projects
           </h2>
 
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-slate-600">
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
             A collection of projects that demonstrate my expertise in building
             modern, scalable, and user-friendly web applications.
           </p>

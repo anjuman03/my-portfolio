@@ -29,7 +29,10 @@ const AnimatedBackground = () => {
   }, [mouseX, mouseY]);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden bg-white" style={{ perspective: 1000 }}>
+    <div
+      className="fixed inset-0 -z-10 overflow-hidden bg-background"
+      style={{ perspective: 1000 }}
+    >
       <motion.div
         className="absolute inset-0"
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
@@ -77,7 +80,7 @@ const AnimatedBackground = () => {
         {particles.map((p) => (
           <motion.div
             key={p.id}
-            className="absolute rounded-full bg-blue-400/25"
+            className="absolute rounded-full bg-blue-400/25 dark:bg-blue-300/30"
             style={{ width: p.size, height: p.size, top: `${p.top}%`, left: `${p.left}%` }}
             animate={{ y: [0, -40, 0], opacity: [0.2, 0.7, 0.2] }}
             transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
@@ -86,7 +89,7 @@ const AnimatedBackground = () => {
       </motion.div>
 
       {/* Faint grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000006_1px,transparent_1px),linear-gradient(to_bottom,#00000006_1px,transparent_1px)] bg-[size:48px_48px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000006_1px,transparent_1px),linear-gradient(to_bottom,#00000006_1px,transparent_1px)] bg-[size:48px_48px] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)]" />
     </div>
   );
 };

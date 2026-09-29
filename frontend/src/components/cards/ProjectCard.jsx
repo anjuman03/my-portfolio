@@ -20,12 +20,12 @@ const ProjectCard = ({
     <motion.div
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3 }}
-      className="relative overflow-hidden rounded-3xl bg-white shadow-lg hover:shadow-2xl"
+      className="relative overflow-hidden rounded-3xl bg-card text-card-foreground shadow-lg hover:shadow-2xl dark:border dark:border-border dark:shadow-none dark:hover:shadow-blue-500/10"
     >
       {isAdmin && <AdminControls onEdit={onEdit} onDelete={onDelete} />}
       <div className="grid lg:grid-cols-2 lg:min-h-[380px]">
         {/* Image */}
-        <div className="relative min-h-[300px] overflow-hidden bg-slate-100 lg:min-h-[380px]">
+        <div className="relative min-h-[300px] overflow-hidden bg-slate-100 dark:bg-muted lg:min-h-[380px]">
           {image && image.trim() !== "" ? (
             <motion.img
               src={image}
@@ -35,8 +35,8 @@ const ProjectCard = ({
               className="absolute inset-0 h-full w-full object-cover object-top"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-slate-100">
-              <span className="text-8xl font-bold text-blue-600">
+            <div className="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-muted">
+              <span className="text-8xl font-bold text-blue-600 dark:text-blue-400">
                 {title?.charAt(0)}
               </span>
             </div>
@@ -50,7 +50,7 @@ const ProjectCard = ({
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-2xl font-bold text-slate-900 lg:text-3xl"
+            className="text-2xl font-bold text-foreground lg:text-3xl"
           >
             {title}
           </motion.h3>
@@ -60,14 +60,14 @@ const ProjectCard = ({
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.15, duration: 0.5 }}
             viewport={{ once: true }}
-            className="mt-3 line-clamp-3 leading-7 text-slate-600"
+            className="mt-3 line-clamp-3 leading-7 text-muted-foreground"
           >
             {description}
           </motion.p>
 
           {technologies.length > 0 && (
             <div className="mt-5">
-              <h4 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
+              <h4 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
                 Tech Stack
               </h4>
 
@@ -86,14 +86,14 @@ const ProjectCard = ({
                       y: -2,
                       scale: 1.05,
                     }}
-                    className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 ring-1 ring-blue-100"
+                    className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-500/20"
                   >
                     {tech}
                   </motion.span>
                 ))}
 
                 {technologies.length > 6 && (
-                  <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+                  <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600 dark:bg-muted dark:text-muted-foreground">
                     +{technologies.length - 6} more
                   </span>
                 )}
@@ -109,7 +109,7 @@ const ProjectCard = ({
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 font-semibold text-white"
+                className="flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 font-semibold text-white dark:bg-slate-100 dark:text-slate-900"
               >
                 <FaGithub />
                 GitHub
@@ -123,7 +123,7 @@ const ProjectCard = ({
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-2.5 font-semibold text-slate-700 transition hover:border-blue-600 hover:text-blue-600"
+                className="flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-2.5 font-semibold text-slate-700 transition hover:border-blue-600 hover:text-blue-600 dark:border-border dark:text-foreground/80 dark:hover:border-blue-400 dark:hover:text-blue-400"
               >
                 <FiExternalLink />
                 Live Demo
@@ -132,7 +132,7 @@ const ProjectCard = ({
 
             <Link
               to={`/project/${id}`}
-              className="flex items-center gap-2 rounded-xl border border-blue-600 px-5 py-2.5 font-semibold text-blue-600 transition hover:bg-blue-600 hover:text-white"
+              className="flex items-center gap-2 rounded-xl border border-blue-600 px-5 py-2.5 font-semibold text-blue-600 transition hover:bg-blue-600 hover:text-white dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-500 dark:hover:text-white"
             >
               Details
               <FiArrowRight />

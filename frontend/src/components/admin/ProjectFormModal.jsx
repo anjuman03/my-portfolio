@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import axios from "axios";
 import { toast } from "sonner";
 import { useAdminAuth } from "@/context/AdminAuthContext";
+import { labelClass, inputClass, fileClass } from "./formStyles";
 
 const categories = [
   "Full Stack",
@@ -128,15 +129,13 @@ const ProjectFormModal = ({ initialData, onClose, onSuccess }) => {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="text-sm font-medium text-slate-700">
-              Category
-            </label>
+            <label className={labelClass}>Category</label>
 
             <select
               name="category"
               value={form.category}
               onChange={handleChange}
-              className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm outline-none transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+              className={inputClass}
             >
               {categories.map((c) => (
                 <option key={c}>{c}</option>
@@ -145,9 +144,7 @@ const ProjectFormModal = ({ initialData, onClose, onSuccess }) => {
           </div>
 
           <div>
-            <label className="text-sm font-medium text-slate-700">
-              Cover Image
-            </label>
+            <label className={labelClass}>Cover Image</label>
 
             <input
               type="file"
@@ -155,7 +152,7 @@ const ProjectFormModal = ({ initialData, onClose, onSuccess }) => {
               onChange={(e) =>
                 setCoverImage(e.target.files[0])
               }
-              className="mt-1.5 w-full text-sm text-slate-600 file:mr-2 file:rounded-lg file:border-0 file:bg-blue-50 file:px-3 file:py-2 file:font-medium file:text-blue-600 hover:file:bg-blue-100"
+              className={fileClass}
             />
           </div>
         </div>
@@ -190,27 +187,20 @@ const ProjectFormModal = ({ initialData, onClose, onSuccess }) => {
 
 const Field = ({ label, ...props }) => (
   <div>
-    <label className="text-sm font-medium text-slate-700">
-      {label}
-    </label>
+    <label className={labelClass}>{label}</label>
 
-    <input
-      {...props}
-      className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm outline-none transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-    />
+    <input {...props} className={inputClass} />
   </div>
 );
 
 const TextArea = ({ label, ...props }) => (
   <div>
-    <label className="text-sm font-medium text-slate-700">
-      {label}
-    </label>
+    <label className={labelClass}>{label}</label>
 
     <textarea
       {...props}
       rows={3}
-      className="mt-1.5 w-full resize-none rounded-xl border border-slate-200 px-4 py-2.5 text-sm outline-none transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+      className={`${inputClass} resize-none`}
     />
   </div>
 );

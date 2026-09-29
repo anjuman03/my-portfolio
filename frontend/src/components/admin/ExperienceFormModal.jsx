@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import axios from "axios";
 import { toast } from "sonner";
 import { useAdminAuth } from "@/context/AdminAuthContext";
+import { labelClass, inputClass } from "./formStyles";
 
 const employmentTypes = [
   "Full Time",
@@ -117,15 +118,13 @@ const ExperienceFormModal = ({
         />
 
         <div>
-          <label className="text-sm font-medium text-slate-700">
-            Employment Type
-          </label>
+          <label className={labelClass}>Employment Type</label>
 
           <select
             name="employmentType"
             value={form.employmentType}
             onChange={handleChange}
-            className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all text-sm"
+            className={inputClass}
           >
             {employmentTypes.map((type) => (
               <option key={type}>
@@ -162,7 +161,7 @@ const ExperienceFormModal = ({
           />
         </div>
 
-        <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
+        <label className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
           <input
             type="checkbox"
             name="currentlyWorking"
@@ -200,14 +199,9 @@ const Field = ({
   ...props
 }) => (
   <div>
-    <label className="text-sm font-medium text-slate-700">
-      {label}
-    </label>
+    <label className={labelClass}>{label}</label>
 
-    <input
-      {...props}
-      className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all text-sm"
-    />
+    <input {...props} className={inputClass} />
   </div>
 );
 
@@ -216,14 +210,9 @@ const TextArea = ({
   ...props
 }) => (
   <div>
-    <label className="text-sm font-medium text-slate-700">
-      {label}
-    </label>
+    <label className={labelClass}>{label}</label>
 
-    <textarea
-      {...props}
-      className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all text-sm resize-none"
-    />
+    <textarea {...props} className={`${inputClass} resize-none`} />
   </div>
 );
 

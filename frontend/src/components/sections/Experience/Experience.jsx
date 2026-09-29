@@ -86,15 +86,15 @@ const Experience = () => {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <p className="font-semibold uppercase tracking-widest text-blue-600">
+          <p className="font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Experience
           </p>
 
-          <h2 className="mt-3 text-5xl font-bold text-slate-900 sm:text-6xl">
+          <h2 className="mt-3 text-5xl font-bold text-foreground sm:text-6xl">
             My Journey
           </h2>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg text-slate-600">
+          <p className="mx-auto mt-5 max-w-3xl text-lg text-muted-foreground">
             My academic, leadership, and technical journey that has helped shape
             my skills and experience.
           </p>

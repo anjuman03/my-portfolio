@@ -3,6 +3,7 @@ import axios from "axios";
 import Modal from "./Modal";
 import { useAdminAuth } from "@/context/AdminAuthContext";
 import { toast } from "sonner";
+import { labelClass, inputClass, fileClass } from "./formStyles";
 
 const CertificateFormModal = ({ initialData, onClose, onSuccess }) => {
   const { token } = useAdminAuth();
@@ -108,9 +109,7 @@ const CertificateFormModal = ({ initialData, onClose, onSuccess }) => {
         />
 
         <div>
-          <label className="text-sm font-medium text-slate-700">
-            Issue Date
-          </label>
+          <label className={labelClass}>Issue Date</label>
 
           <input
             type="date"
@@ -118,20 +117,18 @@ const CertificateFormModal = ({ initialData, onClose, onSuccess }) => {
             value={form.issueDate}
             onChange={handleChange}
             required
-            className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm outline-none transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+            className={inputClass}
           />
         </div>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">
-            Certificate Image
-          </label>
+          <label className={labelClass}>Certificate Image</label>
 
           <input
             type="file"
             accept="image/*"
             onChange={handleImage}
-            className="mt-1.5 w-full text-sm text-slate-600 file:mr-2 file:rounded-lg file:border-0 file:bg-blue-50 file:px-3 file:py-2 file:font-medium file:text-blue-600 hover:file:bg-blue-100"
+            className={fileClass}
           />
         </div>
 
@@ -139,7 +136,7 @@ const CertificateFormModal = ({ initialData, onClose, onSuccess }) => {
           <img
             src={preview}
             alt="Preview"
-            className="w-full rounded-2xl border border-slate-200 object-contain"
+            className="w-full rounded-2xl border border-slate-200 object-contain dark:border-border"
           />
         )}
 
@@ -161,12 +158,9 @@ const CertificateFormModal = ({ initialData, onClose, onSuccess }) => {
 
 const Field = ({ label, ...props }) => (
   <div>
-    <label className="text-sm font-medium text-slate-700">{label}</label>
+    <label className={labelClass}>{label}</label>
 
-    <input
-      {...props}
-      className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm outline-none transition-all focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-    />
+    <input {...props} className={inputClass} />
   </div>
 );
 

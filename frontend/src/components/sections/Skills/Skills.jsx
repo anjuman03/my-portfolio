@@ -93,15 +93,15 @@ const Skills = () => {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <p className="font-semibold uppercase tracking-widest text-blue-600">
+          <p className="font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Skills
           </p>
 
-          <h2 className="mt-2 text-5xl font-bold text-slate-900">
+          <h2 className="mt-2 text-5xl font-bold text-foreground">
             Technologies I Work With
           </h2>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">
             I build modern, scalable web applications using the MERN stack,
             programming fundamentals, and industry-standard development tools.
           </p>
@@ -136,9 +136,9 @@ const Skills = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-                className="mb-12 rounded-3xl border border-slate-100 bg-white p-8 shadow-lg"
+                className="mb-12 rounded-3xl border border-slate-100 bg-card p-8 shadow-lg dark:border-border dark:shadow-none"
               >
-                <h3 className="mb-8 text-3xl font-bold text-slate-900">
+                <h3 className="mb-8 text-3xl font-bold text-foreground">
                   {category}
                 </h3>
 
